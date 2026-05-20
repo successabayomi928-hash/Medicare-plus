@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - MediCare Plus Healthcare</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
@@ -88,10 +89,16 @@
         }
         .logo-icon {
             width: 40px; height: 40px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
             border-radius: var(--radius);
-            display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 1.1rem;
+            overflow: hidden;
+            display: block;
+            flex-shrink: 0;
+        }
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
         .logo-text { display: flex; flex-direction: column; }
         .logo-text span:first-child {
@@ -350,8 +357,48 @@
             .footer-grid { grid-template-columns: 1fr 1fr; }
         }
         @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .mobile-toggle { display: block; }
+            .navbar {
+                flex-wrap: wrap;
+                align-items: flex-start;
+                height: auto;
+                padding: 0.75rem 4%;
+                row-gap: 0.75rem;
+            }
+            .logo { order: 1; }
+            .mobile-toggle {
+                display: block;
+                order: 2;
+                align-self: flex-start;
+                margin-top: 0.5rem;
+            }
+            .nav-links {
+                display: none;
+                order: 3;
+                flex-direction: column;
+                gap: 1rem;
+                width: 100%;
+                margin-top: 0.5rem;
+            }
+            .navbar.nav-open .nav-links { display: flex; }
+            .nav-links a {
+                width: 100%;
+                padding: 0.75rem 0;
+            }
+            .nav-cta {
+                display: none;
+                order: 4;
+                width: 100%;
+            }
+            .navbar.nav-open .nav-cta {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                margin-top: 0.5rem;
+            }
+            .nav-cta a {
+                width: 100%;
+                justify-content: center;
+            }
             .top-bar { display: none; }
             .footer-grid { grid-template-columns: 1fr; }
             .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
@@ -380,7 +427,7 @@
     <!-- Navbar -->
     <nav class="navbar">
         <a href="health.html" class="logo">
-            <div class="logo-icon"><i class="fas fa-heartbeat"></i></div>
+            <div class="logo-icon"><img src="favicon.svg" alt="MediCare Plus logo"></div>
             <div class="logo-text">
                 <span>MediCare</span>
                 <span>Plus</span>
@@ -760,6 +807,25 @@
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Mobile navbar toggle
+        var navbar = document.querySelector('.navbar');
+        var mobileToggle = document.querySelector('.mobile-toggle');
+        var navLinks = document.querySelectorAll('.nav-links a');
+
+        if (mobileToggle && navbar) {
+            mobileToggle.addEventListener('click', function() {
+                navbar.classList.toggle('nav-open');
+            });
+        }
+
+        navLinks.forEach(function(link) {
+            link.addEventListener('click', function() {
+                if (navbar.classList.contains('nav-open')) {
+                    navbar.classList.remove('nav-open');
+                }
             });
         });
     </script>
