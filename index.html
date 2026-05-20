@@ -42,6 +42,9 @@
             <li><a href="#doctors">Doctors</a></li>
             <li><a href="#testimonials">Reviews</a></li>
             <li><a href="#contact">Contact</a></li>
+            <li class="nav-action"><a href="#appointment" class="btn-primary">
+                <i class="fas fa-calendar-check"></i> Book Appointment
+            </a></li>
         </ul>
         <div class="nav-cta">
             <a href="#appointment" class="btn-primary">
@@ -184,6 +187,24 @@
                     });
                     if (textNode) {
                         textNode.textContent = expanded ? 'Show less ' : 'Learn more ';
+                    }
+                });
+            });
+
+            var navbar = document.querySelector('.navbar');
+            var mobileToggle = document.querySelector('.mobile-toggle');
+            var navLinks = document.querySelectorAll('.nav-links a');
+
+            if (mobileToggle && navbar) {
+                mobileToggle.addEventListener('click', function() {
+                    navbar.classList.toggle('nav-open');
+                });
+            }
+
+            navLinks.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    if (navbar.classList.contains('nav-open')) {
+                        navbar.classList.remove('nav-open');
                     }
                 });
             });
