@@ -22,17 +22,39 @@
         // Form submission
         document.getElementById('appointmentForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            const btn = e.target.querySelector('.form-submit');
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-            setTimeout(() => {
-                btn.innerHTML = '<i class="fas fa-check-circle"></i> Appointment Requested!';
-                btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-                e.target.reset();
+            const form = e.target;
+            const btn = form.querySelector('.form-submit');
+            const formData = new FormData(form);
+
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            btn.disabled = true;
+
+            fetch(form.action, {
+                method: form.method,
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    btn.innerHTML = '<i class="fas fa-check-circle"></i> Appointment Requested!';
+                    btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                    form.reset();
+                } else {
+                    return response.json().then(data => {
+                        throw new Error((data.error && data.error.length) ? data.error.join(', ') : 'Submission failed.');
+                    });
+                }
+            }).catch(() => {
+                btn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Submission failed';
+                btn.style.background = 'linear-gradient(135deg, #dc2626, #b91c1c)';
+            }).finally(() => {
                 setTimeout(() => {
                     btn.innerHTML = '<i class="fas fa-calendar-check"></i> Confirm Appointment';
                     btn.style.background = '';
+                    btn.disabled = false;
                 }, 3000);
-            }, 1500);
+            });
         });
 
         // Smooth scroll

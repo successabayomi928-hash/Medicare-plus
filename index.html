@@ -309,31 +309,32 @@
             <div class="appointment-form reveal">
                 <h3>Request Appointment</h3>
                 <p>Fill in your details and we'll get back to you within 2 hours.</p>
-                <form id="appointmentForm">
+                <form id="appointmentForm" action="https://formspree.io/f/myklnawl" method="POST">
+                    <input type="hidden" name="_subject" value="MediCare Appointment Request">
                     <div class="form-row">
                         <div class="form-group">
                             <label>First Name</label>
-                            <input type="text" placeholder="John" required>
+                            <input type="text" name="first_name" placeholder="John" required>
                         </div>
                         <div class="form-group">
                             <label>Last Name</label>
-                            <input type="text" placeholder="Doe" required>
+                            <input type="text" name="last_name" placeholder="Doe" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" placeholder="john@example.com" required>
+                            <input type="email" name="email" placeholder="john@example.com" required>
                         </div>
                         <div class="form-group">
                             <label>Phone</label>
-                            <input type="tel" placeholder="+1 (555) 000-0000" required>
+                            <input type="tel" name="phone" placeholder="+1 (555) 000-0000" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Department</label>
-                            <select required>
+                            <select name="department" required>
                                 <option value="">Select department</option>
                                 <option>Cardiology</option>
                                 <option>Neurology</option>
@@ -346,12 +347,12 @@
                         </div>
                         <div class="form-group">
                             <label>Preferred Date</label>
-                            <input type="date" required>
+                            <input type="date" name="preferred_date" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Additional Notes</label>
-                        <textarea placeholder="Briefly describe your symptoms or concerns..."></textarea>
+                        <textarea name="additional_notes" placeholder="Briefly describe your symptoms or concerns..."></textarea>
                     </div>
                     <button type="submit" class="form-submit">
                         <i class="fas fa-calendar-check"></i> Confirm Appointment
