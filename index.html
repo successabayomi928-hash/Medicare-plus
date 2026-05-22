@@ -10,14 +10,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- Top Bar -->
-    <div class="top-bar">
-        <div class="top-bar-left">
-            <span><i class="fas fa-phone-alt"></i> Emergency: +1 (800) 123-4567</span>
-            <span><i class="fas fa-clock"></i> Mon-Sat: 8AM - 8PM</span>
-            <span><i class="fas fa-map-marker-alt"></i> 123 Medical Drive, New York</span>
-        </div>
         <div class="top-bar-right">
             <a href="#"><i class="fab fa-facebook-f"></i></a>
             <a href="#"><i class="fab fa-twitter"></i></a>
@@ -162,51 +154,6 @@
             </div>
         </div>
     </section>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.service-link').forEach(function(link) {
-                link.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    const card = link.closest('.service-card');
-                    if (!card) return;
-                    const moreText = card.querySelector('.more-text');
-                    if (!moreText) return;
-                    const expanded = card.classList.toggle('expanded');
-                    moreText.style.display = expanded ? 'inline' : 'none';
-                    const icon = link.querySelector('i');
-                    if (icon) {
-                        icon.classList.toggle('fa-arrow-right', !expanded);
-                        icon.classList.toggle('fa-arrow-left', expanded);
-                    }
-                    const textNode = Array.from(link.childNodes).find(function(node) {
-                        return node.nodeType === Node.TEXT_NODE;
-                    });
-                    if (textNode) {
-                        textNode.textContent = expanded ? 'Show less ' : 'Learn more ';
-                    }
-                });
-            });
-
-            var navbar = document.querySelector('.navbar');
-            var mobileToggle = document.querySelector('.mobile-toggle');
-            var navLinks = document.querySelectorAll('.nav-links a');
-
-            if (mobileToggle && navbar) {
-                mobileToggle.addEventListener('click', function() {
-                    navbar.classList.toggle('nav-open');
-                });
-            }
-
-            navLinks.forEach(function(link) {
-                link.addEventListener('click', function() {
-                    if (navbar.classList.contains('nav-open')) {
-                        navbar.classList.remove('nav-open');
-                    }
-                });
-            });
-        });
-    </script>
 
     <!-- About -->
     <section class="about" id="about">
@@ -506,28 +453,61 @@
             <div class="footer-links">
                 <h4>Departments</h4>
                 <ul>
-                    <li><a href="#">Cardiology</a></li>
-                    <li><a href="#">Neurology</a></li>
-                    <li><a href="#">Orthopedics</a></li>
-                    <li><a href="#">Pediatrics</a></li>
-                    <li><a href="#">Dental Care</a></li>
+                    <li><a href="#" class="dept-link" data-dept="cardiology">Cardiology</a></li>
+                    <li><a href="#" class="dept-link" data-dept="neurology">Neurology</a></li>
+                    <li><a href="#" class="dept-link" data-dept="orthopedics">Orthopedics</a></li>
+                    <li><a href="#" class="dept-link" data-dept="pediatrics">Pediatrics</a></li>
+                    <li><a href="#" class="dept-link" data-dept="dental">Dental Care</a></li>
                 </ul>
             </div>
             <div class="footer-links footer-contact">
                 <h4>Contact Us</h4>
                 <ul>
-                    <li><i class="fas fa-map-marker-alt"></i> 123 Medical Drive, New York, NY 10001</li>
-                    <li><i class="fas fa-phone-alt"></i> +1 (800) 123-4567</li>
-                    <li><i class="fas fa-envelope"></i> care@medicareplus.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Ogun State, Nigeria</li>
+                    <li><i class="fas fa-phone-alt"></i> +234 801 234 5678</li>
+                    <li><i class="fas fa-envelope"></i> info@medicareplus.com</li>
                     <li><i class="fas fa-clock"></i> Mon-Sat: 8AM - 8PM</li>
-                    <li><i class="fas fa-ambulance"></i> Emergency: 24/7</li>
+                    <li><i class="fas fa-ambulance"></i> Emergency: +234 801 234 5678</li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 MediCare Plus. All rights reserved. | <a href="#" style="color: var(--text-muted);">Privacy Policy</a> | <a href="#" style="color: var(--text-muted);">Terms of Service</a></p>
+            <p>&copy; 2026 MediCare Plus. All rights reserved. | <a href="#" class="policy-link" data-policy="privacy" style="color: var(--text-muted);">Privacy Policy</a> | <a href="#" class="policy-link" data-policy="terms" style="color: var(--text-muted);">Terms of Service</a></p>
         </div>
     </footer>
+
+    <!-- Department Modal -->
+    <div id="departmentModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-header">
+                <h2 id="deptTitle"></h2>
+            </div>
+            <div class="modal-body">
+                <div class="dept-modal-image">
+                    <img id="deptImage" src="" alt="Department">
+                </div>
+                <div class="dept-modal-content">
+                    <p id="deptDescription"></p>
+                    <div id="deptFeatures"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Policy Modal -->
+    <div id="policyModal" class="modal">
+        <div class="modal-content modal-large">
+            <button class="modal-close">&times;</button>
+            <div class="modal-header">
+                <h2 id="policyTitle"></h2>
+            </div>
+            <div class="modal-body policy-body">
+                <div id="policyContent"></div>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
